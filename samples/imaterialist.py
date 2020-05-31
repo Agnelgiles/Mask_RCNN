@@ -132,9 +132,6 @@ class ImaterialistDataset(utils.Dataset):
 
 
 def train(base_dir, img_dir):
-    # if not os.path.exists(COCO_MODEL_PATH):
-    #     utils.download_trained_weights(COCO_MODEL_PATH)
-
     log_dir = os.path.join(base_dir, 'logs')
 
     config = ImatirealistConfig()
@@ -165,6 +162,11 @@ def train(base_dir, img_dir):
 
     model = modellib.MaskRCNN(mode="training", config=config,
                               model_dir=log_dir)
+
+    if not os.path.exists(COCO_MODEL_PATH):
+        utils.download_trained_weights(COCO_MODEL_PATH)
+        load_status = model.load_weights(COCO_MODEL_PATH, by_name=True)
+        print(load_status.assert_consumed())
 
     augmentation = imgaug.augmenters.Sometimes(0.5, [
         imgaug.augmenters.Fliplr(0.5),
