@@ -2709,23 +2709,18 @@ class MaskRCNN():
         """Returns anchor pyramid for the given image size."""
         backbone_shapes = compute_backbone_shapes(self.config, image_shape)
         # Cache anchors and reuse if image shape is the same
-        if not hasattr(self, "_anchor_cache"):
-            self._anchor_cache = {}
-        if not tuple(image_shape) in self._anchor_cache:
-            # Generate Anchors
-            a = utils.generate_pyramid_anchors(
-                self.config.RPN_ANCHOR_SCALES,
-                self.config.RPN_ANCHOR_RATIOS,
-                backbone_shapes,
-                self.config.BACKBONE_STRIDES,
-                self.config.RPN_ANCHOR_STRIDE)
-            # Keep a copy of the latest anchors in pixel coordinates because
-            # it's used in inspect_model notebooks.
-            # TODO: Remove this after the notebook are refactored to not use it
-            self.anchors = a
-            # Normalize coordinates
-            self._anchor_cache[tuple(image_shape)] = utils.norm_boxes(a, image_shape[:2])
-        return self._anchor_cache[tuple(image_shape)]
+
+        # Generate Anchors
+        a = utils.generate_pyramid_anchors(
+            self.config.RPN_ANCHOR_SCALES,
+            self.config.RPN_ANCHOR_RATIOS,
+            backbone_shapes,
+            self.config.BACKBONE_STRIDES,
+            self.config.RPN_ANCHOR_STRIDE)
+        # Keep a copy of the latest anchors in pixel coordinates because
+        # it's used in inspect_model notebooks.
+        self.anchors = a
+        return utils.norm_boxes(a, image_shape[:2])
 
     def ancestor(self, tensor, name, checked=None):
         """Finds the ancestor of a TF tensor in the computation graph.
