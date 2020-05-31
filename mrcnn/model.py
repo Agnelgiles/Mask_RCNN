@@ -3035,7 +3035,7 @@ class DataGenerator(keras.utils.Sequence):
 
         for b, image_id in enumerate(list_IDs_temp):
             image, image_meta, gt_class_ids, gt_boxes, gt_masks = \
-                self.load_image_gt(self, image_id)
+                self.load_image_gt(image_id)
 
             # Skip images that have no instances. This can happen in cases
             # where we train on a subset of classes and the image doesn't
