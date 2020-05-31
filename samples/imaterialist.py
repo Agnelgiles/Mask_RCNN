@@ -164,8 +164,7 @@ def train(base_dir, img_dir):
                               model_dir=log_dir)
 
     weight_path = model.get_imagenet_weights()
-    load_status = model.load_weights(weight_path, by_name=True)
-    print(load_status.assert_consumed())
+    model.load_weights(weight_path, by_name=True)
 
     augmentation = imgaug.augmenters.Sometimes(0.5, [
         imgaug.augmenters.Fliplr(0.5),
