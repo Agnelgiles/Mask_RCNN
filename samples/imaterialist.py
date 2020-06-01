@@ -51,7 +51,7 @@ class ImatirealistConfig(Config):
     # Adjust down if you use a smaller GPU.
     IMAGES_PER_GPU = 6
 
-    GPU_COUNT = 2
+    GPU_COUNT = 1
 
     IMAGE_MIN_DIM = 384
     IMAGE_MAX_DIM = 384
