@@ -16,6 +16,7 @@ import pandas as pd
 import imgaug  # https://github.com/aleju/imgaug (pip3 install imgaug)
 import json
 import sys
+from keras.preprocessing import image as KImage
 
 ROOT_DIR = os.path.abspath("Mask_RCNN/")
 
@@ -126,6 +127,11 @@ class ImaterialistDataset(utils.Dataset):
         info = self.image_info[image_id]
         data = self.data_frame[self.data_frame.ImageId == info['id']]
         return data.ClassId.iloc[0]
+
+    def load_image(self, image_id):
+        path = self.image_info[image_id]['path']
+        img = KImage.load_img(path)
+        return np.array(img)
 
 
 ############################################################
