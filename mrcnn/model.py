@@ -3101,6 +3101,7 @@ class DataGenerator(keras.utils.Sequence):
                     batch_mrcnn_class_ids[b] = mrcnn_class_ids
                     batch_mrcnn_bbox[b] = mrcnn_bbox
                     batch_mrcnn_mask[b] = mrcnn_mask
+
         inputs = [batch_images, batch_image_meta, batch_rpn_match, batch_rpn_bbox,
                   batch_gt_class_ids, batch_gt_boxes, batch_gt_masks]
         outputs = []

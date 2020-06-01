@@ -108,7 +108,7 @@ class ImaterialistDataset(utils.Dataset):
         info = self.image_info[image_id]
         data = self.data_frame[self.data_frame.ImageId == info['id']]
         encodedPixels = data.EncodedPixels.iloc[0]
-        class_ids = np.asarray(data.ClassId.iloc[0], dtype='int32')
+        class_ids = np.asarray(data.ClassId.iloc[0], dtype=np.int32)
         masks = np.zeros((info['height'], info['width'], len(class_ids)))
         for idx, ep in enumerate(encodedPixels):
             ep = np.array(ep.split(' '), dtype='int32')
@@ -118,7 +118,7 @@ class ImaterialistDataset(utils.Dataset):
                 x = math.floor(pix[0] / info['height'])
                 y1 = y + pix[1]
                 masks[y:y1, x, idx] = 1
-        return masks, class_ids
+        return masks.astype(np.bool), class_ids
 
     def get_class_id(self, image_id):
         info = self.image_info[image_id]
@@ -226,3 +226,7 @@ def getData(base_dir):
 
     train_dataset = ImaterialistDataset(train_df, base_dir, 'train_image', img_dir)
     return train_dataset
+
+
+if __name__ == "__main__":
+    train('../', '../images')
