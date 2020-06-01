@@ -48,7 +48,9 @@ class ImatirealistConfig(Config):
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
-    IMAGES_PER_GPU = 5
+    IMAGES_PER_GPU = 8
+
+    GPU_COUNT = 2
 
     IMAGE_MIN_DIM = 448
     IMAGE_MAX_DIM = 448
