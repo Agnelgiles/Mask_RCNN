@@ -49,15 +49,12 @@ class ImatirealistConfig(Config):
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
-    IMAGES_PER_GPU = 8
+    IMAGES_PER_GPU = 6
 
     GPU_COUNT = 2
 
-    IMAGE_MIN_DIM = 448
-    IMAGE_MAX_DIM = 448
-
-    # Uncomment to train on 8 GPUs (default is 1)
-    # GPU_COUNT = 8
+    IMAGE_MIN_DIM = 384
+    IMAGE_MAX_DIM = 384
 
     # Number of classes (including background)
     NUM_CLASSES = 1 + 46  # iMaterialist has 46 classes

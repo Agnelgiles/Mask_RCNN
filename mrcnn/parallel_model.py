@@ -32,10 +32,10 @@ class ParallelModel(KM.Model):
         keras_model: The Keras model to parallelize
         gpu_count: Number of GPUs. Must be > 1
         """
-        super(ParallelModel, self).__init__(inputs=keras_model,
-                                            outputs=self.make_parallel())
         self.inner_model = keras_model
         self.gpu_count = gpu_count
+        super(ParallelModel, self).__init__(inputs=self.inner_model,
+                                            outputs=self.make_parallel())
 
 
     def __getattribute__(self, attrname):
